@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:   # Enforcing label
+      tier: frontend
+    matchExpressions:
+      - key: release
+        operator: In
+        values:
+          - stable
+          - release
+          - blue-green
+  template:
+    metadata:
+      labels:
+        tier: frontend
+        release: stable # canary, blue-green  ---> stable
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine

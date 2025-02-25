@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-service
+spec:
+  selector:      # Label Selector, Service will be able to send the traffic to pods that have label app: simple
+    app: nginx-deployment
+  ports:
+    - protocol: TCP
+      port: 80         # Service Port
+      targetPort: 80   # Port that pods are listening on
